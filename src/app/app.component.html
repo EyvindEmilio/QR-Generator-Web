@@ -1,21 +1,159 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mat-toolbar color="primary">
+    <div class="container">
+        <h2 class="text-white"><img src="assets/images/icon.png" height="45" alt=""> QR Generator</h2>
+    </div>
+</mat-toolbar>
 
-<router-outlet></router-outlet>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-7">
+            <mat-tab-group animationDuration="0ms">
+                <mat-tab label="TEXT">
+                    <div class="p-3">
+                        <mat-form-field class="w-100">
+                            <textarea matInput placeholder="Input your text here" class="w-100" rows="5"
+                                      [(ngModel)]="qrText"></textarea>
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary" class="btn-generate" (click)="generate(Types.TEXT)">
+                            <span class="text-white">Generate text QR</span>
+                        </button>
+                    </div>
+                </mat-tab>
+                <mat-tab label="URL">
+                    <div class="p-3">
+                        <mat-form-field class="w-100">
+                            <textarea matInput placeholder="Input your url here" class="w-100" rows="5"
+                                      [(ngModel)]="qrURL"></textarea>
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" class="btn-generate" (click)="generate(Types.URL)">
+                            <span class="text-white">Generate url QR</span>
+                        </button>
+                    </div>
+                </mat-tab>
+                <mat-tab label="CONTACT">
+                    <div class="p-3">
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Name" [(ngModel)]="qrContactName">
+                        </mat-form-field>
+
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Organization/Company" [(ngModel)]="qrContactOrganization">
+                        </mat-form-field>
+
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Phone number" [(ngModel)]="qrContactPhone">
+                        </mat-form-field>
+
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Email" [(ngModel)]="qrContactEmail">
+                        </mat-form-field>
+
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Country" [(ngModel)]="qrContactCountry">
+                        </mat-form-field>
+
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="City" [(ngModel)]="qrContactCity">
+                        </mat-form-field>
+
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Street" [(ngModel)]="qrContactStreet">
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary" class="btn-generate"
+                                (click)="generate(Types.CONTACT)">
+                            <span class="text-white">Generate contact QR</span>
+                        </button>
+                    </div>
+                </mat-tab>
+                <mat-tab label="PHONE">
+                    <div class="p-3">
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Phone number" [(ngModel)]="qrPhoneNumber">
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" class="btn-generate" (click)="generate(Types.PHONE)">
+                            <span class="text-white">Generate phone QR</span>
+                        </button>
+                    </div>
+                </mat-tab>
+                <mat-tab label="EMAIL">
+                    <div class="p-3">
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Email" [(ngModel)]="qrEmailAddress">
+                        </mat-form-field>
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Subject" [(ngModel)]="qrEmailSubject">
+                        </mat-form-field>
+                        <mat-form-field class="w-100">
+                            <textarea matInput placeholder="Message" class="w-100" rows="5"
+                                      [(ngModel)]="qrEmailMessage"></textarea>
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary" class="btn-generate" (click)="generate(Types.EMAIL)">
+                            <span class="text-white">Generate email QR</span>
+                        </button>
+                    </div>
+                </mat-tab>
+                <mat-tab label="SMS">
+                    <div class="p-3">
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="Phone number" [(ngModel)]="qrSmsPhoneNumber">
+                        </mat-form-field>
+                        <mat-form-field class="w-100">
+                            <textarea matInput placeholder="Message" class="w-100" rows="5"
+                                      [(ngModel)]="qrSmsMessage"></textarea>
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary" class="btn-generate" (click)="generate(Types.SMS)">
+                            <span class="text-white">Generate sms QR</span>
+                        </button>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <hr>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block; text-align:center;"
+                 data-ad-layout="in-article"
+                 data-ad-format="fluid"
+                 data-ad-client="ca-pub-9678505635074779"
+                 data-ad-slot="4105794996"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <mat-toolbar color="accent">
+                    <span class="text-white">QR code</span>
+                </mat-toolbar>
+            </div>
+            <div class="row text-center">
+                <mat-form-field class="mt-2 ml-2 mr-2">
+                    <mat-select placeholder="Size" [(ngModel)]="qrSize">
+                        <mat-option [value]="256">256</mat-option>
+                        <mat-option [value]="512">512</mat-option>
+                        <mat-option [value]="1024">1024</mat-option>
+                        <mat-option [value]="2048">2048</mat-option>
+                        <mat-option [value]="4096">4096</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="mt-2 ml-2 mr-2">
+                    <mat-select placeholder="Correct level" [(ngModel)]="qrCorrectLevel">
+                        <mat-option [value]="'L'">Low</mat-option>
+                        <mat-option [value]="'M'">Medium</mat-option>
+                        <mat-option [value]="'Q'">High</mat-option>
+                        <mat-option [value]="'H'">Best</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="m-auto pt-4">
+                    <qrcode [qrdata]="qrData" [size]="qrSize" [level]="qrCorrectLevel" [usesvg]="false"
+                            [allowEmptyString]="true">
+                    </qrcode>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
